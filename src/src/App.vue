@@ -1,13 +1,13 @@
 <template>
     <div class="row my-4">
         <div class="col">
-            <button
+            <!-- <button
                 @click="flag = !flag"
                 class="btn btn-success btn-lg"
                 type="button"
             >
                 Toggle
-            </button>
+            </button> -->
 
             <!-- <transition name="fade" mode="out-in">
                 <h2 v-if="flag" key="main" class="display-2 my-3">
@@ -22,7 +22,7 @@
                 <h2 v-if="flag" class="display-2">Hello</h2>
             </transition> -->
 
-            <transition
+            <!-- <transition
                 @before-enter="beforeEnter"
                 @enter="enter"
                 @after-enter="afterEnter"
@@ -33,7 +33,22 @@
                 name="fade"
             >
                 <h2 class="display-2 my-3" v-if="flag">Hey</h2>
-            </transition>
+            </transition> -->
+
+            <button class="btn btn-primary btn-lg" @click="addItem">Add</button>
+
+            <ul class="list-unstyled d-flex justify-content-center">
+                <transition-group name="fade">
+                    <li
+                        class="display-3 p-3 m-2 bg-info text-white shadow"
+                        v-for="(number, index) in numbers"
+                        :key="number"
+                        @click="removeItem(index)"
+                    >
+                        {{ number }}
+                    </li>
+                </transition-group>
+            </ul>
         </div>
     </div>
 </template>
@@ -44,9 +59,18 @@ export default {
     data() {
         return {
             flag: false,
+            numbers: [1, 2, 3, 4, 5],
         };
     },
     methods: {
+        addItem() {
+            const num = Math.floor(Math.random() * 100 + 1);
+            const index = Math.floor(Math.random() * this.numbers.length);
+            this.numbers.splice(index, 0, num);
+        },
+        removeItem(index) {
+            this.numbers.splice(index, 1);
+        },
         beforeEnter(el) {
             console.log("before-enter event fired", el);
         },
@@ -103,6 +127,12 @@ h2 {
 .fade-leave-to {
     transition: all 1s linear;
     opacity: 0;
+}
+.fade-leave-active {
+    position: absolute;
+}
+.fade-move {
+    transition: all 1s linear;
 }
 .zoom-enter-from {
     opacity: 0;
