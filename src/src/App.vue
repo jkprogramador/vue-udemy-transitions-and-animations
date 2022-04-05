@@ -18,8 +18,20 @@
                 </h2>
             </transition> -->
 
-            <transition name="zoom">
+            <!-- <transition name="zoom">
                 <h2 v-if="flag" class="display-2">Hello</h2>
+            </transition> -->
+
+            <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @before-leave="beforeLeave"
+                @leave="leave"
+                @after-leave="afterLeave"
+                :css="false"
+            >
+                <h2 class="display-2 my-3" v-if="flag">Hey</h2>
             </transition>
         </div>
     </div>
@@ -32,6 +44,44 @@ export default {
         return {
             flag: false,
         };
+    },
+    methods: {
+        beforeEnter(el) {
+            console.log("before-enter event fired", el);
+        },
+        enter(el, done) {
+            console.log("enter event fired", el);
+            const animation = el.animate(
+                [{ transform: "scale3d(0, 0, 0)" }, {}],
+                {
+                    duration: 1000,
+                }
+            );
+            animation.onfinish = () => {
+                done();
+            };
+        },
+        afterEnter(el) {
+            console.log("after-enter event fired", el);
+        },
+        beforeLeave(el) {
+            console.log("before-leave event fired", el);
+        },
+        leave(el, done) {
+            console.log("leave event fired", el);
+            const animation = el.animate(
+                [{}, { transform: "scale3d(0, 0, 0)" }],
+                {
+                    duration: 1000,
+                }
+            );
+            animation.onfinish = () => {
+                done();
+            };
+        },
+        afterLeave(el) {
+            console.log("after-leave event fired", el);
+        },
     },
 };
 </script>
