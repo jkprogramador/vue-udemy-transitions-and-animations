@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    image: vue-udemy-advanced-components:latest
+    volumes:
+      - ./src/public:/usr/src/app/public
+      - ./src/src:/usr/src/app/src
+      - ./src/package.json:/usr/src/app/package.json
+      - ./src/package-lock.json:/usr/src/app/package-lock.json
+    ports:
+      - 8000:8080
