@@ -9,8 +9,13 @@
                 Toggle
             </button>
 
-            <transition name="fade">
-                <h2 v-if="flag" class="display-2 my-3">Hello World!</h2>
+            <transition name="fade" mode="out-in">
+                <h2 v-if="flag" key="main" class="display-2 my-3">
+                    Hello World!
+                </h2>
+                <h2 class="display-2 my-3" v-else key="secondary">
+                    Another hello!
+                </h2>
             </transition>
         </div>
     </div>
