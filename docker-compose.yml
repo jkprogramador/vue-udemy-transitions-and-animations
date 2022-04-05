@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    image: vue-udemy-advanced-components:latest
+    image: vue-udemy-transitions-and-animations:latest
     volumes:
       - ./src/public:/usr/src/app/public
       - ./src/src:/usr/src/app/src
